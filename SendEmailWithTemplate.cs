@@ -57,3 +57,32 @@ public async Task<IActionResult> Create(UserFormVM userFormVM)
 	}
 	return RedirectToAction(nameof(Index));
 }
+
+================================================================================================================================
+//لو بتبعت اكتر من بودي
+//في فولدر هلبر
+public static class EmailBodyBuilder
+{
+    public static string GenerateEmailBody(string template, Dictionary<string, string> templateModel)
+    {
+        var TempPath = $"{_webHostEnvironment.WebRootPath}/Templates/{template}.html";//مكان التمبلت اللي هتتبعت
+		StreamReader streamReader = new StreamReader(TempPath);//للتعامل مع هذه التمبلت
+		var body = streamReader.ReadToEnd();//إقراها للاخر
+		streamReader.Close();
+
+        foreach (var item in templateModel)
+            body = body.Replace(item.Key, item.Value);
+
+        return body;
+    }
+}
+
+//Call method
+var emailBody = EmailBodyBuilder.GenerateEmailBody("EmailConfirmation",
+    templateModel: new Dictionary<string, string>
+    {
+        //key , value
+        { "{{name}}", user.FirstName },
+            { "{{action_url}}", $"{origin}/auth/emailConfirmation?userId={user.Id}&code={code}" }
+    }
+);
