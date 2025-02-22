@@ -36,7 +36,7 @@ public async Task<IActionResult> Create(UserFormVM userFormVM)
 
 		BackgroundJob.Enqueue(() => _emailSender.SendEmailAsync(user.Email, "Confirm your email", body));
       //For background tasks 
-      // 1) install HangFire package
+      // 1) install Hangfire.AspNetCore and Hangfire.SqlServer package
       // 2) in program.cs
       //builder.Services.AddHangfire(x => x.UseSqlServerStorage(connectionString));
       //builder.Services.AddHangfireServer();
