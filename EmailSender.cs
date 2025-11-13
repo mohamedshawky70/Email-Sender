@@ -1,8 +1,12 @@
-﻿using BookHaven.Web.Settings;
-using Microsoft.AspNetCore.Identity.UI.Services;
+using BookHaven.Web.Settings;
 using Microsoft.Extensions.Options;
-using System.Net;
-using System.Net.Mail;
+
+// Install MailKit package
+using MimeKit;
+using MailKit.Net.Smtp; // Using this not System.Net.Mail 
+using MailKit.Security;
+using Microsoft.AspNetCore.Identity.UI.Services;
+
 
 namespace BookHaven.Web.Services
 {
